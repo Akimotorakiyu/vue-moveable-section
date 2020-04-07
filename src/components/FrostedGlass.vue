@@ -4,8 +4,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { fromEvent } from "rxjs";
-import { throttleTime } from "rxjs/operators";
 
 export default Vue.extend({
   name: "FrostedGlass",
@@ -69,20 +67,7 @@ export default Vue.extend({
     }
   },
   async mounted() {
-    // window.addEventListener("mousemove", this.mousemove);
-    let mouseCache = { pageX: 0, pageY: 0 };
-    fromEvent(window, "mousemove")
-      .pipe(throttleTime(16))
-      .subscribe((ele: any) => {
-        if (this.draging.status) {
-          this.mousemove({
-            movementX: ele.pageX - mouseCache.pageX,
-            movementY: ele.pageY - mouseCache.pageY
-          } as any);
-        }
-        mouseCache = ele;
-        // console.log(ele);
-      });
+    window.addEventListener("mousemove", this.mousemove);
     window.addEventListener("mouseup", this.dragend);
   },
   async beforeDestroy() {
