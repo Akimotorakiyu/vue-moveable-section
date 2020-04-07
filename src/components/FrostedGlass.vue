@@ -1,15 +1,12 @@
 <template>
-  <div
-    class="__section__"
-    :style="pos"
-   
-    @mousedown="dragstart"
-    @mouseup="dragend"
-  ></div>
+  <div class="__section__" :style="style" @mousedown="dragstart" @mouseup="dragend"></div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import { fromEvent } from "rxjs";
+import { throttleTime } from "rxjs/operators";
+
 export default Vue.extend({
   name: "FrostedGlass",
   data() {
@@ -24,17 +21,29 @@ export default Vue.extend({
       },
       draging: {
         status: false
+      },
+      style: {
+        top: `${0}px`,
+        height: `${100}px`,
+        left: `${0}px`,
+        width: `${100}px`
       }
     };
   },
-  computed: {
-    pos(): any {
-      return {
-        top: `${this.position.y}px`,
-        height: `${this.size.h}px`,
-        left: `${this.position.x}px`,
-        width: `${this.size.w}px`
-      };
+  watch: {
+    position: {
+      handler() {
+        this.style.top = `${this.position.y}px`;
+        this.style.left = `${this.position.x}px`;
+      },
+      deep: true
+    },
+    size: {
+      handler() {
+        this.style.height = `${this.size.h}px`;
+        this.style.width = `${this.size.w}px`;
+      },
+      deep: true
     }
   },
   methods: {
@@ -60,12 +69,25 @@ export default Vue.extend({
     }
   },
   async mounted() {
-    window.addEventListener("mousemove", this.mousemove);
-     window.addEventListener("mouseup", this.dragend);
+    // window.addEventListener("mousemove", this.mousemove);
+    let mouseCache = { pageX: 0, pageY: 0 };
+    fromEvent(window, "mousemove")
+      .pipe(throttleTime(16))
+      .subscribe((ele: any) => {
+        if (this.draging.status) {
+          this.mousemove({
+            movementX: ele.pageX - mouseCache.pageX,
+            movementY: ele.pageY - mouseCache.pageY
+          } as any);
+        }
+        mouseCache = ele;
+        // console.log(ele);
+      });
+    window.addEventListener("mouseup", this.dragend);
   },
   async beforeDestroy() {
     window.removeEventListener("mousemove", this.mousemove);
-     window.addEventListener("mouseup", this.dragend);
+    window.addEventListener("mouseup", this.dragend);
   }
 });
 </script>
