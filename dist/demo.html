@@ -1,0 +1,19 @@
+<meta charset="utf-8">
+<title>VueFrostedGlass demo</title>
+<script src="https://unpkg.com/vue"></script>
+<script src="./VueFrostedGlass.umd.js"></script>
+
+<link rel="stylesheet" href="./VueFrostedGlass.css">
+
+
+<div id="app">
+  <demo></demo>
+</div>
+
+<script>
+new Vue({
+  components: {
+    demo: VueFrostedGlass
+  }
+}).$mount('#app')
+</script>
