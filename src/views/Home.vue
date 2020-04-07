@@ -2,13 +2,9 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
     <h1>Default</h1>
-    <FrostedGlass backgroundImage="url(/assets/bg-1.png)">
-      <h2>Hello world</h2>
-    </FrostedGlass>
-    <h1>Inline-block</h1>
-    <FrostedGlass background-image="url(/assets/bg-1.png)" class="inline-block">
-      <h2>Hello world</h2>
-    </FrostedGlass>
+    <section class="inline-block">
+      <FrostedGlass></FrostedGlass>
+    </section>
   </div>
 </template>
 
@@ -27,8 +23,10 @@ export default {
 <style lang="stylus" scoped>
 .inline-block {
   display: inline-block;
-  width: 400px;
-  height: 400px;
+  width: 800px;
+  height: 600px;
   border-radius: 1em;
+  position relative
+  background-color #F6F6F6
 }
 </style>
