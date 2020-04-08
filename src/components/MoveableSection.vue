@@ -176,12 +176,29 @@ export default Vue.extend({
           break;
 
         case "resize_left_top":
+          this.position.y += event.movementY;
+          this.size.h -= event.movementY;
+
+          this.position.x += event.movementX;
+          this.size.w -= event.movementX;
           break;
         case "resize_right_top":
+          this.size.w += event.movementX;
+
+          this.position.y += event.movementY;
+          this.size.h -= event.movementY;
+
           break;
         case "resize_right_bottom":
+          this.size.w += event.movementX;
+
+          this.size.h += event.movementY;
           break;
         case "resize_left_bottom":
+          this.position.x += event.movementX;
+          this.size.w -= event.movementX;
+
+          this.size.h += event.movementY;
           break;
 
         default:
