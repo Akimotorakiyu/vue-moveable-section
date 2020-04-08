@@ -161,17 +161,31 @@ export default Vue.extend({
           this.position.y += event.movementY;
           break;
         case "resize_x_md_top":
+          this.position.y += event.movementY;
+          this.size.h -= event.movementY;
+          break;
         case "resize_x_md_bottom":
+          this.size.h += event.movementY;
+          break;
         case "resize_y_md_left":
+          this.position.x += event.movementX;
+          this.size.w -= event.movementX;
+          break;
         case "resize_y_md_right":
+          this.size.w += event.movementX;
+          break;
 
         case "resize_left_top":
+          break;
         case "resize_right_top":
+          break;
         case "resize_right_bottom":
+          break;
         case "resize_left_bottom":
+          break;
 
         default:
-          console.error("undefined drag op");
+          console.error("undefined drag op", this.draging.type);
           break;
       }
     },
