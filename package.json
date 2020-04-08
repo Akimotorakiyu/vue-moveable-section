@@ -1,12 +1,12 @@
 {
-  "name": "vue-frosted-glass",
+  "name": "vue-moveable-section",
   "version": "0.2.4",
   "main": "dist/VueFrostedGlass.umd.js",
   "repository": "https://github.com/Akimotorakiyu/vue-frosted-glass.git",
   "author": "瓦姆乌·湫曗 <2514343130@qq.com>",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name VueFrostedGlass src/components/FrostedGlass.vue",
+    "build": "vue-cli-service build --target lib --name VueMoveableSection src/components/MoveableSection.vue",
     "registry-taobao": "npm config set registry https://registry.npm.taobao.org",
     "registry-npm": "npm config set registry http://registry.npmjs.org/",
     "pub": "npm run registry-npm && npm publish && npm run registry-taobao"

@@ -3,19 +3,19 @@
     <img alt="Vue logo" src="../assets/logo.png" />
     <h1>Default</h1>
     <section class="inline-block">
-      <FrostedGlass></FrostedGlass>
+      <MoveableSection></MoveableSection>
     </section>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import FrostedGlass from "@/components/FrostedGlass.vue";
+import MoveableSection from "@/components/MoveableSection.vue";
 
 export default {
   name: "Home",
   components: {
-    FrostedGlass
+    MoveableSection
   }
 };
 </script>

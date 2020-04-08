@@ -1,5 +1,5 @@
 <template>
-  <div class="__section__" :style="style" @mousedown="dragstart" @mouseup="dragend"></div>
+  <div ref="section" class="__section__" :style="style" @mousedown="dragstart"></div>
 </template>
 
 <script lang="ts">
