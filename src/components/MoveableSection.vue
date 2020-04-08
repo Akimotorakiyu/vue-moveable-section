@@ -20,16 +20,6 @@
     // background-color: yellow;
   }
 
-  &.x-square {
-    height: 4px;
-    width: 100%;
-  }
-
-  &.y-square {
-    height: 100%;
-    width: 4px;
-  }
-
   &.x-md {
     height: 4px;
     width: 100%;
