@@ -32,10 +32,15 @@
     <section class="inline-block">
       <MoveableSection>
         <div class="window">
-          <header class="my-header">hello world</header>
-          <main class="my-main" @mousedown.stop>111</main>
+          <header class="my-header">title bar</header>
+          <main class="my-main" @mousedown.stop>content</main>
         </div>
       </MoveableSection>
+
+      <Window>
+        <template #header>标题</template>
+        内容
+      </Window>
     </section>
   </div>
 </template>
@@ -43,11 +48,13 @@
 <script>
 // @ is an alias to /src
 import MoveableSection from "@/components/MoveableSection.vue";
+import Window from "@/components/Window.vue";
 
 export default {
   name: "Home",
   components: {
-    MoveableSection
+    MoveableSection,
+    Window
   }
 };
 </script>
