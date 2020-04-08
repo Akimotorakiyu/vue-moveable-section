@@ -3,8 +3,8 @@
 .__section__ {
   position: absolute;
   background-color: green;
-  // cursor: grab;
 
+  // cursor: grab;
   &.dragging {
     // cursor: grabbing;
   }
@@ -124,7 +124,15 @@ export default Vue.extend({
       },
       draging: {
         status: false,
-        type: ""
+        type: "",
+        initStatus: {
+          pageX: 0,
+          pageY: 0,
+          x: 0,
+          y: 0,
+          w: 0,
+          h: 0
+        }
       },
       style: {
         top: `${0}px`,
@@ -154,52 +162,63 @@ export default Vue.extend({
     dragstart(event: MouseEvent, type: string) {
       this.draging.status = true;
       this.draging.type = type;
+      this.draging.initStatus.pageX = event.pageX;
+      this.draging.initStatus.pageY = event.pageY;
+
+      this.draging.initStatus.x = this.position.x;
+      this.draging.initStatus.y = this.position.y;
+
+      this.draging.initStatus.w = this.size.w;
+      this.draging.initStatus.h = this.size.h;
     },
     drag(event: MouseEvent) {
+      const movementX = event.pageX - this.draging.initStatus.pageX;
+      const movementY = event.pageY - this.draging.initStatus.pageY;
+
       switch (this.draging.type) {
         case "move":
-          this.position.x += event.movementX;
-          this.position.y += event.movementY;
+          this.position.x = this.draging.initStatus.x + movementX;
+          this.position.y = this.draging.initStatus.y + movementY;
           break;
         case "resize_x_md_top":
-          this.position.y += event.movementY;
-          this.size.h -= event.movementY;
+          this.position.y = this.draging.initStatus.y + movementY;
+          this.size.h = this.draging.initStatus.h - movementY;
           break;
         case "resize_x_md_bottom":
-          this.size.h += event.movementY;
+          this.size.h = this.draging.initStatus.h + movementY;
           break;
         case "resize_y_md_left":
-          this.position.x += event.movementX;
-          this.size.w -= event.movementX;
+          this.position.x = this.draging.initStatus.x + movementX;
+          this.size.w = this.draging.initStatus.w - movementX;
           break;
         case "resize_y_md_right":
-          this.size.w += event.movementX;
+          this.size.w = this.draging.initStatus.w + movementX;
           break;
 
         case "resize_left_top":
-          this.position.y += event.movementY;
-          this.size.h -= event.movementY;
+          this.position.y = this.draging.initStatus.y + movementY;
+          this.size.h = this.draging.initStatus.h - movementY;
 
-          this.position.x += event.movementX;
-          this.size.w -= event.movementX;
+          this.position.x = this.draging.initStatus.x + movementX;
+          this.size.w = this.draging.initStatus.w - movementX;
           break;
         case "resize_right_top":
-          this.size.w += event.movementX;
+          this.size.w = this.draging.initStatus.w + movementX;
 
-          this.position.y += event.movementY;
-          this.size.h -= event.movementY;
+          this.position.y = this.draging.initStatus.y + movementY;
+          this.size.h = this.draging.initStatus.h - movementY;
 
           break;
         case "resize_right_bottom":
-          this.size.w += event.movementX;
+          this.size.w = this.draging.initStatus.w + movementX;
 
-          this.size.h += event.movementY;
+          this.size.h = this.draging.initStatus.h + movementY;
           break;
         case "resize_left_bottom":
-          this.position.x += event.movementX;
-          this.size.w -= event.movementX;
+          this.position.x = this.draging.initStatus.x + movementX;
+          this.size.w = this.draging.initStatus.w - movementX;
 
-          this.size.h += event.movementY;
+          this.size.h = this.draging.initStatus.h + movementY;
           break;
 
         default:
