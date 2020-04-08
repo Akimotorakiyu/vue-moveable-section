@@ -1,5 +1,54 @@
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="stylus">
+.__section__ {
+  position: absolute;
+  background-color: green;
+  border-radius: 1em;
+}
+
+.handle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: red;
+
+  &.x-md {
+    left: 50%;
+  }
+
+  &.y-md {
+    top: 50%;
+  }
+
+  &.left {
+    left: 0px;
+  }
+
+  &.right {
+    right: 0px;
+  }
+
+  &.top {
+    top: 0px;
+  }
+
+  &.bottom {
+    bottom: 0px;
+  }
+}
+</style>
+
 <template>
-  <div ref="section" class="__section__" :style="style" @mousedown="dragstart"></div>
+  <div ref="section" class="__section__" :style="style" @mousedown="dragstart">
+    <div class="handle x-md top"></div>
+    <div class="handle x-md bottom"></div>
+    <div class="handle y-md left"></div>
+    <div class="handle y-md right"></div>
+    <div class="handle left top"></div>
+    <div class="handle right top"></div>
+    <div class="handle right bottom"></div>
+    <div class="handle left bottom"></div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -77,11 +126,3 @@ export default Vue.extend({
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="stylus">
-.__section__ {
-  position: absolute;
-  background-color: green;
-  border-radius: 1em;
-}
-</style>
