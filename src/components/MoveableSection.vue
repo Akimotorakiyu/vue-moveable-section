@@ -2,7 +2,7 @@
 <style scoped lang="stylus">
 .__section__ {
   position: absolute;
-  background-color: green;
+  background-color: #ffffff;
 
   // cursor: grab;
   &.dragging {
