@@ -3,10 +3,10 @@
 .__section__ {
   position: absolute;
   background-color: green;
-  cursor: grab;
+  // cursor: grab;
 
   &.dragging {
-    cursor: grabbing;
+    // cursor: grabbing;
   }
 }
 
@@ -103,6 +103,7 @@
     ></div>
     <!-- resize_left_bottom -->
     <div @mousedown.stop="dragstart($event,'resize_left_bottom')" class="handle left bottom square"></div>
+    <slot></slot>
   </div>
 </template>
 

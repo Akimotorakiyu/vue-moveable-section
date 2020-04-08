@@ -3,7 +3,12 @@
     <img alt="Vue logo" src="../assets/logo.png" />
     <h1>Default</h1>
     <section class="inline-block">
-      <MoveableSection></MoveableSection>
+      <MoveableSection>
+        <div>
+          <header>hello world</header>
+          <main @mousedown.stop>111</main>
+        </div>
+      </MoveableSection>
     </section>
   </div>
 </template>
@@ -26,7 +31,7 @@ export default {
   width: 800px;
   height: 600px;
   border-radius: 1em;
-  position relative
-  background-color #F6F6F6
+  position: relative;
+  background-color: #F6F6F6;
 }
 </style>
