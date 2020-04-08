@@ -3,29 +3,62 @@
 .__section__ {
   position: absolute;
   background-color: green;
-  border-radius: 1em;
 }
 
 .handle {
   position: absolute;
-  width: 4px;
-  height: 4px;
   background-color: red;
 
+  &.square {
+    height: 4px;
+    width: 4px;
+    background-color: yellow;
+  }
+
+  &.x-square {
+    height: 4px;
+    width: 100%;
+  }
+
+  &.y-square {
+    height: 100%;
+    width: 4px;
+  }
+
   &.x-md {
-    left: 50%;
+    height: 4px;
+    width: 100%;
+    cursor: ns-resize;
   }
 
   &.y-md {
-    top: 50%;
+    height: 100%;
+    width: 4px;
+    cursor: ew-resize;
   }
 
   &.left {
     left: 0px;
+
+    &.bottom {
+      cursor: nesw-resize;
+    }
+
+    &.top {
+      cursor: nwse-resize;
+    }
   }
 
   &.right {
     right: 0px;
+
+    &.bottom {
+      cursor: nwse-resize;
+    }
+
+    &.top {
+      cursor: nesw-resize;
+    }
   }
 
   &.top {
@@ -40,14 +73,14 @@
 
 <template>
   <div ref="section" class="__section__" :style="style" @mousedown="dragstart">
-    <div class="handle x-md top"></div>
-    <div class="handle x-md bottom"></div>
-    <div class="handle y-md left"></div>
-    <div class="handle y-md right"></div>
-    <div class="handle left top"></div>
-    <div class="handle right top"></div>
-    <div class="handle right bottom"></div>
-    <div class="handle left bottom"></div>
+    <div @mousedown.stop="resize" class="handle x-md top"></div>
+    <div @mousedown.stop="resize" class="handle x-md bottom"></div>
+    <div @mousedown.stop="resize" class="handle y-md left"></div>
+    <div @mousedown.stop="resize" class="handle y-md right"></div>
+    <div @mousedown.stop="resize" class="handle left top square"></div>
+    <div @mousedown.stop="resize" class="handle right top square"></div>
+    <div @mousedown.stop="resize" class="handle right bottom square"></div>
+    <div @mousedown.stop="resize" class="handle left bottom square"></div>
   </div>
 </template>
 
@@ -94,6 +127,10 @@ export default Vue.extend({
     }
   },
   methods: {
+    resize(event:MouseEvent) {
+      // event.cancelBubble=true
+      console.log("xxxx")
+    },
     dragstart(event: DragEvent) {
       // console.log(event);
       this.draging.status = true;
