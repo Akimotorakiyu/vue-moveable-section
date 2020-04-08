@@ -111,7 +111,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "FrostedGlass",
+  name: "MoveableSection",
   data() {
     return {
       position: {
