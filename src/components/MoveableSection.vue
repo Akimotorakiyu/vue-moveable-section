@@ -3,6 +3,10 @@
 .__section__ {
   position: absolute;
   background-color: green;
+   cursor: grab;
+  &.dragging{
+    cursor: grabbing;
+  }
 }
 
 .handle {
@@ -72,7 +76,12 @@
 </style>
 
 <template>
-  <div ref="section" class="__section__" :style="style" @mousedown="dragstart">
+  <div
+    ref="section"
+    :class="['__section__',draging.status?'dragging':'']"
+    :style="style"
+    @mousedown="dragstart"
+  >
     <div @mousedown.stop="resize" class="handle x-md top"></div>
     <div @mousedown.stop="resize" class="handle x-md bottom"></div>
     <div @mousedown.stop="resize" class="handle y-md left"></div>
@@ -127,9 +136,9 @@ export default Vue.extend({
     }
   },
   methods: {
-    resize(event:MouseEvent) {
+    resize(event: MouseEvent) {
       // event.cancelBubble=true
-      console.log("xxxx")
+      console.log("xxxx");
     },
     dragstart(event: DragEvent) {
       // console.log(event);
