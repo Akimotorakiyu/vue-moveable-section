@@ -3,20 +3,21 @@
 .__section__ {
   position: absolute;
   background-color: green;
-   cursor: grab;
-  &.dragging{
+  cursor: grab;
+
+  &.dragging {
     cursor: grabbing;
   }
 }
 
 .handle {
   position: absolute;
-  background-color: red;
 
+  // background-color: red;
   &.square {
     height: 4px;
     width: 4px;
-    background-color: yellow;
+    // background-color: yellow;
   }
 
   &.x-square {
