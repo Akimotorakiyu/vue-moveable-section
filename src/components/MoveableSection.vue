@@ -81,16 +81,28 @@
     ref="section"
     :class="['__section__',draging.status?'dragging':'']"
     :style="style"
-    @mousedown="dragstart"
+    @mousedown="dragstart($event,'move')"
   >
-    <div @mousedown.stop="resize" class="handle x-md top"></div>
-    <div @mousedown.stop="resize" class="handle x-md bottom"></div>
-    <div @mousedown.stop="resize" class="handle y-md left"></div>
-    <div @mousedown.stop="resize" class="handle y-md right"></div>
-    <div @mousedown.stop="resize" class="handle left top square"></div>
-    <div @mousedown.stop="resize" class="handle right top square"></div>
-    <div @mousedown.stop="resize" class="handle right bottom square"></div>
-    <div @mousedown.stop="resize" class="handle left bottom square"></div>
+    <!-- resize_x_md_top  -->
+    <div @mousedown.stop="dragstart($event,'resize_x_md_top')" class="handle x-md top"></div>
+    <!-- resize_x_md_bottom -->
+    <div @mousedown.stop="dragstart($event,'resize_x_md_bottom')" class="handle x-md bottom"></div>
+    <!-- resize_y_md_left -->
+    <div @mousedown.stop="dragstart($event,'resize_y_md_left')" class="handle y-md left"></div>
+    <!-- resize_y_md_right -->
+    <div @mousedown.stop="dragstart($event,'resize_y_md_right')" class="handle y-md right"></div>
+
+    <!-- resize_left_top -->
+    <div @mousedown.stop="dragstart($event,'resize_left_top')" class="handle left top square"></div>
+    <!-- resize_right_top -->
+    <div @mousedown.stop="dragstart($event,'resize_right_top')" class="handle right top square"></div>
+    <!-- resize_right_bottom -->
+    <div
+      @mousedown.stop="dragstart($event,'resize_right_bottom')"
+      class="handle right bottom square"
+    ></div>
+    <!-- resize_left_bottom -->
+    <div @mousedown.stop="dragstart($event,'resize_left_bottom')" class="handle left bottom square"></div>
   </div>
 </template>
 
@@ -110,7 +122,8 @@ export default Vue.extend({
         h: 100
       },
       draging: {
-        status: false
+        status: false,
+        type: ""
       },
       style: {
         top: `${0}px`,
@@ -137,29 +150,39 @@ export default Vue.extend({
     }
   },
   methods: {
-    resize(event: MouseEvent) {
-      // event.cancelBubble=true
-      console.log("xxxx");
-    },
-    dragstart(event: DragEvent) {
-      // console.log(event);
+    dragstart(event: MouseEvent, type: string) {
       this.draging.status = true;
+      this.draging.type = type;
     },
-    drag(event: DragEvent) {
-      console.log(event.movementX);
-      console.log(event.movementY);
+    drag(event: MouseEvent) {
+      switch (this.draging.type) {
+        case "move":
+          this.position.x += event.movementX;
+          this.position.y += event.movementY;
+          break;
+        case "resize_x_md_top":
+        case "resize_x_md_bottom":
+        case "resize_y_md_left":
+        case "resize_y_md_right":
+
+        case "resize_left_top":
+        case "resize_right_top":
+        case "resize_right_bottom":
+        case "resize_left_bottom":
+
+        default:
+          console.error("undefined drag op");
+          break;
+      }
     },
     mousemove(event: MouseEvent) {
       if (this.draging.status) {
-        console.log(event.movementX);
-        console.log(event.movementY);
-        this.position.x += event.movementX;
-        this.position.y += event.movementY;
+        this.drag(event);
       }
     },
     dragend(event: MouseEvent) {
-      // console.log(event);
       this.draging.status = false;
+      this.draging.type = "";
     }
   },
   async mounted() {
