@@ -2,7 +2,7 @@
   "name": "vue-moveable-section",
   "version": "0.2.4",
   "main": "dist/VueFrostedGlass.umd.js",
-  "repository": "https://github.com/Akimotorakiyu/vue-frosted-glass.git",
+  "repository": "https://github.com/Akimotorakiyu/vue-moveable-section.git",
   "author": "瓦姆乌·湫曗 <2514343130@qq.com>",
   "scripts": {
     "serve": "vue-cli-service serve",
