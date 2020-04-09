@@ -109,8 +109,8 @@ export default Vue.extend({
         y: 0
       },
       size: {
-        w: 100,
-        h: 100
+        w: 400,
+        h: 300
       },
       draging: {
         status: false,
@@ -126,9 +126,9 @@ export default Vue.extend({
       },
       style: {
         top: `${0}px`,
-        height: `${100}px`,
+        height: `${300}px`,
         left: `${0}px`,
-        width: `${100}px`
+        width: `${400}px`
       }
     };
   },
@@ -224,15 +224,23 @@ export default Vue.extend({
     dragend(event: MouseEvent) {
       this.draging.status = false;
       this.draging.type = "";
+    },
+    isOutIframe(event: MouseEvent) {
+      if ((event.target as HTMLElement).tagName === "IFRAME") {
+        this.dragend(event);
+      }
     }
   },
   async mounted() {
     window.addEventListener("mousemove", this.mousemove);
     window.addEventListener("mouseup", this.dragend);
+
+    window.addEventListener("mouseout", this.isOutIframe);
   },
   async beforeDestroy() {
     window.removeEventListener("mousemove", this.mousemove);
-    window.addEventListener("mouseup", this.dragend);
+    window.removeEventListener("mouseup", this.dragend);
+    window.removeEventListener("mouseout", this.isOutIframe);
   }
 });
 </script>

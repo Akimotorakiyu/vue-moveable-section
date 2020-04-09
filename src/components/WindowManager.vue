@@ -20,21 +20,26 @@
   .my-main {
     flex: 1;
   }
+
+  .content {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>
 <template>
   <div class="window-manager">
     <Window>
       <template #header>标题1</template>
-      内容1
+      <iframe class="content" src="https://www.baidu.com" frameborder="0"></iframe>
     </Window>
     <Window>
       <template #header>标题2</template>
-      内容2
+      <iframe class="content" src="https://www.baidu.com" frameborder="0"></iframe>
     </Window>
     <Window>
       <template #header>标题3</template>
-      内容3
+      <iframe class="content" src="https://www.baidu.com" frameborder="0"></iframe>
     </Window>
   </div>
 </template>
