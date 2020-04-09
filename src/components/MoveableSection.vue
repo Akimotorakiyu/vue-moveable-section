@@ -236,7 +236,6 @@ export default Vue.extend({
   async mounted() {
     window.addEventListener("mousemove", this.mousemove);
     window.addEventListener("mouseup", this.dragend);
-
     window.addEventListener("mouseout", this.isOutIframe);
   },
   async beforeDestroy() {
