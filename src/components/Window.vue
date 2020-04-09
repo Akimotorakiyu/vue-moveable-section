@@ -34,11 +34,13 @@
 // @ is an alias to /src
 import MoveableSection from "@/components/MoveableSection.vue";
 
-export default {
+import Vue from "vue";
+
+export default Vue.extend({
   name: "Window",
   components: {
     MoveableSection
   }
-};
+});
 </script>
 

@@ -44,14 +44,20 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Window from "@/components/Window.vue";
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
   name: "WindowManager",
   components: {
     Window
+  },
+  methods: {
+    test(e: MouseEvent) {
+      console.log(e);
+    }
   }
-};
+});
 </script>
 

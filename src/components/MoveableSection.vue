@@ -138,14 +138,16 @@ export default Vue.extend({
         this.style.top = `${this.position.y}px`;
         this.style.left = `${this.position.x}px`;
       },
-      deep: true
+      deep: true,
+      immediate: true
     },
     size: {
       handler() {
         this.style.height = `${this.size.h}px`;
         this.style.width = `${this.size.w}px`;
       },
-      deep: true
+      deep: true,
+      immediate: true
     }
   },
   methods: {
