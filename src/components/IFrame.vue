@@ -41,11 +41,6 @@ export default Vue.extend({
     },
     dragend() {
       this.draging = false;
-    },
-    isOutIframe(event: MouseEvent) {
-      if ((event.target as HTMLElement).tagName === "IFRAME") {
-        this.dragend();
-      }
     }
   },
   async mounted() {
