@@ -9,12 +9,17 @@
     bottom: 0;
     right: 0;
   }
+
+  .frame {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>
 <template>
   <section class="__container__">
-    <iframe frameborder="0" :src="src"></iframe>
-    <div class="modal"></div>
+    <iframe class="frame" frameborder="0" :src="src"></iframe>
+    <div class="modal" v-show="draging"></div>
   </section>
 </template>
 
@@ -36,15 +41,20 @@ export default Vue.extend({
     },
     dragend() {
       this.draging = false;
+    },
+    isOutIframe(event: MouseEvent) {
+      if ((event.target as HTMLElement).tagName === "IFRAME") {
+        this.dragend();
+      }
     }
   },
   async mounted() {
-    window.addEventListener("draging", this.dragstart);
-    window.addEventListener("mouseup", this.dragend);
+    window.addEventListener("movestart", this.dragstart);
+    window.addEventListener("movend", this.dragend);
   },
   async beforeDestroy() {
-    window.removeEventListener("draging", this.dragstart);
-    window.addEventListener("mouseup", this.dragend);
+    window.removeEventListener("movestart", this.dragstart);
+    window.removeEventListener("movend", this.dragend);
   }
 });
 </script>

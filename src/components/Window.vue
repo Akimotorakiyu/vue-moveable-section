@@ -13,7 +13,7 @@
 
   .my-main {
     flex: 1;
-    padding: 20px;
+    // padding: 0 2px 2px 2px;
   }
 }
 </style>

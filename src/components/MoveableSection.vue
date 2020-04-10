@@ -12,7 +12,7 @@
 
 .handle {
   position: absolute;
-
+  // background-color: transparent;
   // background-color: red;
   &.square {
     height: 4px;
@@ -24,9 +24,11 @@
     height: 4px;
     width: 100%;
     cursor: ns-resize;
+    left: 0;
   }
 
   &.y-md {
+    top: 0;
     height: 100%;
     width: 4px;
     cursor: ew-resize;
@@ -73,6 +75,7 @@
     :style="style"
     @mousedown="dragstart($event,'move')"
   >
+    <slot></slot>
     <!-- resize_x_md_top  -->
     <div @mousedown.stop="dragstart($event,'resize_x_md_top')" class="handle x-md top"></div>
     <!-- resize_x_md_bottom -->
@@ -93,7 +96,6 @@
     ></div>
     <!-- resize_left_bottom -->
     <div @mousedown.stop="dragstart($event,'resize_left_bottom')" class="handle left bottom square"></div>
-    <slot></slot>
   </div>
 </template>
 
@@ -162,6 +164,8 @@ export default Vue.extend({
 
       this.draging.initStatus.w = this.size.w;
       this.draging.initStatus.h = this.size.h;
+
+      window.dispatchEvent(new UIEvent("movestart"));
     },
     drag(event: MouseEvent) {
       const movementX = event.pageX - this.draging.initStatus.pageX;
@@ -226,6 +230,8 @@ export default Vue.extend({
     dragend(event: MouseEvent) {
       this.draging.status = false;
       this.draging.type = "";
+
+      window.dispatchEvent(new UIEvent("movend"));
     },
     isOutIframe(event: MouseEvent) {
       if ((event.target as HTMLElement).tagName === "IFRAME") {

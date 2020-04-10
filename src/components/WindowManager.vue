@@ -31,27 +31,30 @@
   <div class="window-manager">
     <Window>
       <template #header>标题1</template>
-      <iframe class="content" src="https://www.baidu.com" frameborder="0"></iframe>
+      <IFrame class="content" src="https://www.baidu.com"></IFrame>
     </Window>
     <Window>
       <template #header>标题2</template>
-      <iframe class="content" src="https://www.baidu.com" frameborder="0"></iframe>
+      <IFrame class="content" src="https://www.baidu.com"></IFrame>
     </Window>
     <Window>
       <template #header>标题3</template>
-      <iframe class="content" src="https://www.baidu.com" frameborder="0"></iframe>
+      <IFrame class="content" src="https://www.baidu.com"></IFrame>
     </Window>
   </div>
 </template>
 
 <script lang="ts">
 import Window from "@/components/Window.vue";
+import IFrame from "@/components/IFrame.vue";
+
 import Vue from "vue";
 
 export default Vue.extend({
   name: "WindowManager",
   components: {
-    Window
+    Window,
+    IFrame
   },
   methods: {
     test(e: MouseEvent) {
