@@ -115,6 +115,10 @@ export default Vue.extend({
   props: {
     zone: {
       default: () => ({ x: 0, y: 0, w: 400, h: 300 } as Zone)
+    },
+    useTransform: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -132,10 +136,11 @@ export default Vue.extend({
         }
       },
       style: {
-        top: `${this.zone.y}px`,
+        top: `${0}px`,
+        left: `${0}px`,
         height: `${this.zone.h}px`,
-        left: `${this.zone.x}px`,
-        width: `${this.zone.w}px`
+        width: `${this.zone.w}px`,
+        transform: `translate(${0}px,${0}px)`
       }
     };
   },
@@ -146,8 +151,14 @@ export default Vue.extend({
         //   JSON.stringify(newValue, undefined, 4),
         //   JSON.stringify(oldValue, undefined, 4)
         // );
-        this.style.left = `${this.zone.x}px`;
-        this.style.top = `${this.zone.y}px`;
+
+        if (this.useTransform) {
+          this.style.transform = `translate(${this.zone.x}px,${this.zone.y}px)`;
+        } else {
+          this.style.left = `${this.zone.x}px`;
+          this.style.top = `${this.zone.y}px`;
+        }
+
         this.style.width = `${this.zone.w}px`;
         this.style.height = `${this.zone.h}px`;
       },
