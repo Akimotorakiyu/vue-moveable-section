@@ -12,6 +12,7 @@
 
 .handle {
   position: absolute;
+
   // background-color: transparent;
   // background-color: red;
   &.square {
@@ -22,14 +23,14 @@
 
   &.x-md {
     height: 4px;
-    width: 100%;
+    right: 0;
     cursor: ns-resize;
     left: 0;
   }
 
   &.y-md {
     top: 0;
-    height: 100%;
+    bottom: 0;
     width: 4px;
     cursor: ew-resize;
   }
