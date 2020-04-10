@@ -6,6 +6,8 @@
   border-radius: 4px;
   overflow: hidden;
 
+  // transition: all 0.032s ease-in-out;
+
   // cursor: grab;
   &.dragging {
     // cursor: grabbing;
@@ -112,9 +114,17 @@ interface Zone {
   h: number;
 }
 
+function controlGrid(x: number, grid: number) {
+  return grid ? x - (x % grid) : x;
+}
+
 export default Vue.extend({
   name: "MoveableSection",
   props: {
+    grid: {
+      type: Number,
+      default: 4
+    },
     zone: {
       default: () => ({ x: 0, y: 0, w: 400, h: 300 } as Zone)
     },
@@ -186,7 +196,7 @@ export default Vue.extend({
     drag(event: MouseEvent) {
       const movementX = event.pageX - this.draging.initStatus.pageX;
       const movementY = event.pageY - this.draging.initStatus.pageY;
-      
+
       // console.log("xxxx", this.draging.type);
 
       let { x, y, w, h } = this.draging.initStatus;
@@ -241,11 +251,15 @@ export default Vue.extend({
           console.error("undefined drag op", this.draging.type);
           break;
       }
-
-      this.zone.x = x;
-      this.zone.y = y;
-      this.zone.w = w;
-      this.zone.h = h;
+      const grid = this.grid;
+      // this.zone.x = x;
+      // this.zone.y = y;
+      // this.zone.w = w;
+      // this.zone.h = h;
+      this.zone.x = controlGrid(x, grid);
+      this.zone.y = controlGrid(y, grid);
+      this.zone.w = controlGrid(w, grid);
+      this.zone.h = controlGrid(h, grid);
     },
     mousemove(event: MouseEvent) {
       if (this.draging.status) {
