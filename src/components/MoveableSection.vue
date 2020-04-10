@@ -4,7 +4,7 @@
   position: absolute;
   background-color: #ffffff;
   border-radius: 4px;
-  overflow hidden
+  overflow: hidden;
 
   // cursor: grab;
   &.dragging {
@@ -186,58 +186,66 @@ export default Vue.extend({
     drag(event: MouseEvent) {
       const movementX = event.pageX - this.draging.initStatus.pageX;
       const movementY = event.pageY - this.draging.initStatus.pageY;
-      console.log("xxxx", this.draging.type);
+      
+      // console.log("xxxx", this.draging.type);
+
+      let { x, y, w, h } = this.draging.initStatus;
 
       switch (this.draging.type) {
         case "move":
-          this.zone.x = this.draging.initStatus.x + movementX;
-          this.zone.y = this.draging.initStatus.y + movementY;
+          x = this.draging.initStatus.x + movementX;
+          y = this.draging.initStatus.y + movementY;
           break;
         case "resize_x_md_top":
-          this.zone.y = this.draging.initStatus.y + movementY;
-          this.zone.h = this.draging.initStatus.h - movementY;
+          y = this.draging.initStatus.y + movementY;
+          h = this.draging.initStatus.h - movementY;
           break;
         case "resize_x_md_bottom":
-          this.zone.h = this.draging.initStatus.h + movementY;
+          h = this.draging.initStatus.h + movementY;
           break;
         case "resize_y_md_left":
-          this.zone.x = this.draging.initStatus.x + movementX;
-          this.zone.w = this.draging.initStatus.w - movementX;
+          x = this.draging.initStatus.x + movementX;
+          w = this.draging.initStatus.w - movementX;
           break;
         case "resize_y_md_right":
-          this.zone.w = this.draging.initStatus.w + movementX;
+          w = this.draging.initStatus.w + movementX;
           break;
 
         case "resize_left_top":
-          this.zone.y = this.draging.initStatus.y + movementY;
-          this.zone.h = this.draging.initStatus.h - movementY;
+          y = this.draging.initStatus.y + movementY;
+          h = this.draging.initStatus.h - movementY;
 
-          this.zone.x = this.draging.initStatus.x + movementX;
-          this.zone.w = this.draging.initStatus.w - movementX;
+          x = this.draging.initStatus.x + movementX;
+          w = this.draging.initStatus.w - movementX;
           break;
         case "resize_right_top":
-          this.zone.w = this.draging.initStatus.w + movementX;
+          w = this.draging.initStatus.w + movementX;
 
-          this.zone.y = this.draging.initStatus.y + movementY;
-          this.zone.h = this.draging.initStatus.h - movementY;
+          y = this.draging.initStatus.y + movementY;
+          h = this.draging.initStatus.h - movementY;
 
           break;
         case "resize_right_bottom":
-          this.zone.w = this.draging.initStatus.w + movementX;
+          w = this.draging.initStatus.w + movementX;
 
-          this.zone.h = this.draging.initStatus.h + movementY;
+          h = this.draging.initStatus.h + movementY;
           break;
         case "resize_left_bottom":
-          this.zone.x = this.draging.initStatus.x + movementX;
-          this.zone.w = this.draging.initStatus.w - movementX;
+          x = this.draging.initStatus.x + movementX;
+          w = this.draging.initStatus.w - movementX;
 
-          this.zone.h = this.draging.initStatus.h + movementY;
+          h = this.draging.initStatus.h + movementY;
           break;
 
         default:
           console.error("undefined drag op", this.draging.type);
           break;
       }
+
+      this.zone.x = x;
+      this.zone.y = y;
+      this.zone.w = w;
+      this.zone.h = h;
     },
     mousemove(event: MouseEvent) {
       if (this.draging.status) {
