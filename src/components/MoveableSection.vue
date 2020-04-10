@@ -3,6 +3,8 @@
 .__section__ {
   position: absolute;
   background-color: #ffffff;
+  border-radius: 4px;
+  overflow hidden
 
   // cursor: grab;
   &.dragging {
