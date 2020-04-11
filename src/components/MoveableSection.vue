@@ -282,11 +282,15 @@ export default Vue.extend({
       w = controlGrid(w, grid);
       h = controlGrid(h, grid);
 
-      x = x < this.area.x ? this.area.x : x;
-      y = y < this.area.y ? this.area.y : y;
+      if (this.limited) {
+        x = x < this.area.x ? this.area.x : x;
+        y = y < this.area.y ? this.area.y : y;
 
-      x = x + w > this.area.x + this.area.w ? this.area.x + this.area.w - w : x;
-      y = y + h > this.area.y + this.area.h ? this.area.y + this.area.h - h : y;
+        x =
+          x + w > this.area.x + this.area.w ? this.area.x + this.area.w - w : x;
+        y =
+          y + h > this.area.y + this.area.h ? this.area.y + this.area.h - h : y;
+      }
 
       this.zone.x = x;
       this.zone.y = y;
