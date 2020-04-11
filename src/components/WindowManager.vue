@@ -29,9 +29,16 @@
 </style>
 <template>
   <div class="window-manager">
+    <el-button type="primary" circle @click="newWindow">
+      <i class="el-icon-circle-plus-outline"></i>
+    </el-button>
+
     <template v-for="(win,index) in windows">
-      <Window :key="index">
-        <template #header>{{win.title}}</template>
+      <Window :key="win._id">
+        <template #header>
+          {{win.title}}
+          <i class="el-icon-circle-close" @click="close(index)"></i>
+        </template>
         <IFrame class="content" :src="win.src"></IFrame>
       </Window>
     </template>
@@ -41,18 +48,22 @@
 <script lang="ts">
 import Window from "@/components/Window.vue";
 import IFrame from "@/components/IFrame.vue";
-
+import { nanoid } from "nanoid";
 import Vue from "vue";
 
+interface WindowsDesc {
+  _id: string;
+
+  title: string;
+  src: string;
+}
+let count = 0;
 export default Vue.extend({
   name: "WindowManager",
   props: {
     windows: {
-      default: () => [
-        { title: "标题1", src: "https://www.baidu.com" },
-        { title: "标题2", src: "https://www.baidu.com" },
-        { title: "标题3", src: "https://www.baidu.com" }
-      ]
+      default: () =>
+        [{ title: "标题", src: "https://www.baidu.com" }] as WindowsDesc[]
     }
   },
   components: {
@@ -60,8 +71,16 @@ export default Vue.extend({
     IFrame
   },
   methods: {
-    test(e: MouseEvent) {
-      console.log(e);
+    newWindow(e: MouseEvent) {
+      this.windows.push({
+        _id: nanoid(),
+        title: "标题" + Math.random().toFixed(2),
+        src: "https://www.baidu.com"
+      });
+    },
+    close(index: number) {
+      console.log(index);
+      this.windows.splice(index, 1);
     }
   }
 });
