@@ -131,10 +131,14 @@ export default Vue.extend({
     useTransform: {
       type: Boolean,
       default: true
+    },
+    limited: {
+      default: true
     }
   },
   data() {
     return {
+      parentContainer: null as HTMLElement | null,
       draging: {
         status: false,
         type: "",
@@ -155,6 +159,26 @@ export default Vue.extend({
         transform: `translate(${0}px,${0}px)`
       }
     };
+  },
+  computed: {
+    area(): any {
+      if (this.parentContainer) {
+        const partent = this.parentContainer;
+        return {
+          x: partent.clientLeft,
+          y: partent.clientTop,
+          w: partent.clientWidth,
+          h: partent.clientHeight
+        };
+      } else {
+        return {
+          x: 0,
+          y: 0,
+          w: 0,
+          h: 0
+        };
+      }
+    }
   },
   watch: {
     zone: {
@@ -252,14 +276,22 @@ export default Vue.extend({
           break;
       }
       const grid = this.grid;
-      // this.zone.x = x;
-      // this.zone.y = y;
-      // this.zone.w = w;
-      // this.zone.h = h;
-      this.zone.x = controlGrid(x, grid);
-      this.zone.y = controlGrid(y, grid);
-      this.zone.w = controlGrid(w, grid);
-      this.zone.h = controlGrid(h, grid);
+
+      x = controlGrid(x, grid);
+      y = controlGrid(y, grid);
+      w = controlGrid(w, grid);
+      h = controlGrid(h, grid);
+
+      x = x < this.area.x ? this.area.x : x;
+      y = y < this.area.y ? this.area.y : y;
+
+      x = x + w > this.area.x + this.area.w ? this.area.x + this.area.w - w : x;
+      y = y + h > this.area.y + this.area.h ? this.area.y + this.area.h - h : y;
+
+      this.zone.x = x;
+      this.zone.y = y;
+      this.zone.w = w;
+      this.zone.h = h;
     },
     mousemove(event: MouseEvent) {
       if (this.draging.status) {
@@ -282,6 +314,8 @@ export default Vue.extend({
     window.addEventListener("mousemove", this.mousemove);
     window.addEventListener("mouseup", this.dragend);
     window.addEventListener("mouseout", this.isOutIframe);
+
+    this.parentContainer = this.$el.parentElement;
   },
   async beforeDestroy() {
     window.removeEventListener("mousemove", this.mousemove);
