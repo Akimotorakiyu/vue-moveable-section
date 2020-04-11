@@ -286,10 +286,18 @@ export default Vue.extend({
         x = x < this.area.x ? this.area.x : x;
         y = y < this.area.y ? this.area.y : y;
 
-        x =
-          x + w > this.area.x + this.area.w ? this.area.x + this.area.w - w : x;
-        y =
-          y + h > this.area.y + this.area.h ? this.area.y + this.area.h - h : y;
+        x = x > this.area.x + this.area.w ? this.area.x + this.area.w : x;
+        y = y > this.area.y + this.area.h ? this.area.y + this.area.h : y;
+
+        // x =
+        //   x + w > this.area.x + this.area.w ? this.area.x + this.area.w - w : x;
+        // y =
+        //   y + h > this.area.y + this.area.h ? this.area.y + this.area.h - h : y;
+
+        w =
+          x + w > this.area.x + this.area.w ? this.area.x + this.area.w - x : w;
+        h =
+          y + h > this.area.y + this.area.h ? this.area.y + this.area.h - y : h;
       }
 
       this.zone.x = x;
