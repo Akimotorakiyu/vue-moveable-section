@@ -29,18 +29,12 @@
 </style>
 <template>
   <div class="window-manager">
-    <Window>
-      <template #header>标题1</template>
-      <IFrame class="content" src="https://www.baidu.com"></IFrame>
-    </Window>
-    <Window>
-      <template #header>标题2</template>
-      <IFrame class="content" src="https://www.baidu.com"></IFrame>
-    </Window>
-    <Window>
-      <template #header>标题3</template>
-      <IFrame class="content" src="https://www.baidu.com"></IFrame>
-    </Window>
+    <template v-for="(win,index) in windows">
+      <Window :key="index">
+        <template #header>{{win.title}}</template>
+        <IFrame class="content" :src="win.src"></IFrame>
+      </Window>
+    </template>
   </div>
 </template>
 
@@ -52,6 +46,15 @@ import Vue from "vue";
 
 export default Vue.extend({
   name: "WindowManager",
+  props: {
+    windows: {
+      default: () => [
+        { title: "标题1", src: "https://www.baidu.com" },
+        { title: "标题2", src: "https://www.baidu.com" },
+        { title: "标题3", src: "https://www.baidu.com" }
+      ]
+    }
+  },
   components: {
     Window,
     IFrame
