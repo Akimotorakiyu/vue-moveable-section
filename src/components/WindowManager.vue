@@ -63,7 +63,7 @@ export default Vue.extend({
   props: {
     windows: {
       default: () =>
-        [{ title: "标题", src: "https://www.baidu.com" }] as WindowsDesc[]
+        [{ title: "标题", src: "https://www.bilibili.com/" }] as WindowsDesc[]
     }
   },
   components: {
@@ -75,7 +75,7 @@ export default Vue.extend({
       this.windows.push({
         _id: nanoid(),
         title: "标题" + Math.random().toFixed(2),
-        src: "https://www.baidu.com"
+        src: "https://www.bilibili.com/"
       });
     },
     close(index: number) {

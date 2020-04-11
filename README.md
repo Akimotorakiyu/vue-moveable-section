@@ -1,6 +1,6 @@
-# vue-frosted-glass
+# vue-moveable-section
 
-![demo]()
+![demo](demo.png)
 
 ## Usage
 
